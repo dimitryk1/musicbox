@@ -1,9 +1,17 @@
 import os
 import requests
 from flask import Flask, jsonify
+from aws_xray_sdk.core import xray_recorder
+from aws_xray_sdk.ext.flask.middleware import XRayMiddleware
+
+# Configure X-Ray recorder
+#xray_recorder.configure(service='rock')
 
 # Initialize Flask application
 app = Flask(__name__)
+
+# Initialize X-Ray middleware
+#XRayMiddleware(app, xray_recorder)
 
 # Get the port from environment variable or use default value 9000
 port = int(os.environ.get("PORT", 9000))
@@ -25,12 +33,11 @@ def rock():
         rock_url = f"http://{rock_host}"
         print(f"Received rock request, calling {rock_url}")
         response = requests.get(rock_url)
-        
         # Return the same response from the rock service
-        return response.json()
+        return jsonify({"artists": response.text})
     except requests.exceptions.RequestException as e:
         # Handle any errors that occur during the request
-        return jsonify({"error": f"Failed to connect to rock service: {str(e)}"}), 500
+        return jsonify({"debug1": f"Received rock request, calling {rock_url}","error": f"Failed to connect to rock service: {str(e)}"}), 500
 
 @app.route('/opera', methods=['GET'])
 def opera():
