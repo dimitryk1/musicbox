@@ -3,15 +3,19 @@ import requests
 from flask import Flask, jsonify
 from aws_xray_sdk.core import xray_recorder
 from aws_xray_sdk.ext.flask.middleware import XRayMiddleware
+from aws_xray_sdk.core import patch_all
 
 # Configure X-Ray recorder
-#xray_recorder.configure(service='rock')
+xray_recorder.configure(service='rock')
+plugins = ('EC2Plugin', 'ECSPlugin')
+xray_recorder.configure(plugins=plugins)
+patch_all()
 
 # Initialize Flask application
 app = Flask(__name__)
 
 # Initialize X-Ray middleware
-#XRayMiddleware(app, xray_recorder)
+XRayMiddleware(app, xray_recorder)
 
 # Get the port from environment variable or use default value 9000
 port = int(os.environ.get("PORT", 9000))
