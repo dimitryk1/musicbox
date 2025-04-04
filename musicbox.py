@@ -6,7 +6,7 @@ from aws_xray_sdk.ext.flask.middleware import XRayMiddleware
 from aws_xray_sdk.core import patch_all
 
 # Configure X-Ray recorder
-xray_recorder.configure(service='rock')
+xray_recorder.configure(service='musicbox')
 plugins = ('EC2Plugin', 'ECSPlugin')
 xray_recorder.configure(plugins=plugins)
 patch_all()
