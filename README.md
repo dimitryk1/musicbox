@@ -1,5 +1,5 @@
 # musicbox
-Creates 2 docker images for ECS: 
+Creates 3 docker images for ECS: 
 --------------------------------
 * rockapp - return random rock artist (text), listen for port 9003 or env variable PORT
 * operaapp - return random opera artist, listen for port 9002 or env variable PORT
