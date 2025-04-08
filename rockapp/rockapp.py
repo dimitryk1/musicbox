@@ -30,7 +30,7 @@ def classic_rock_artists():
         "The Beatles",
         "Eagles",
         "The Who",
-        "The Doors"
+        "The Doors",
         "Aerosmith"
     ]
     minind=0
